@@ -3,22 +3,17 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'app-root',
   styleUrls: ['app.component.scss'],
-  // ngModel is taking a property binding
-  // ngModelChange is taking an event binding
+  // template ref - create a reference to a particular dom node.
   template: `
     <div class="app">
-      <button (click)="handleClick()">
-        Change Name
+      <button (click)="handleClick(username.value)">
+        Get Value
       </button>
-      <input 
-        type="text"
-        [ngModel]="name"
-        (ngModelChange)="handleChange($event)"
-      />
-      <input 
-        type="text"
-        [(ngModel)]="name"
-      />
+      <input type="text" #username/>
+      <button (click)="handleClick(signinDate.value)">
+        Get Date
+      </button>
+      <input type="date" #signinDate />
       <div>{{ name }}</div>
     </div>
   `
@@ -27,13 +22,8 @@ import { Component } from '@angular/core';
 export class AppComponent {
   name: string = 'Alistair'
   
-  handleClick() {
-    this.name = 'Mackay';
+  handleClick(value: string) {
+    console.log(value);
   }
-
-  handleChange(value: string) {
-    this.name = value;
-  }
-
 
 }
