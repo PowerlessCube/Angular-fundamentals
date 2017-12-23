@@ -13,21 +13,32 @@ interface Passenger {
   template: `
     <div class="app">
       <h3>Airline Passengers</h3>
+      <!-- Approach 1: property binding-->
       <ul>
-      <!-- Under the hood of *ngFor - template with ngForOf -->
-        <template ngFor let-passenger let-i="index" [ngForOf]="passengers">
-          <li>
-            {{ i }}: {{ passenger.fullname }}
-          </li>
-        </template>
-      </ul>
-      <h3>Airline Passengers</h3>
-      <ul>
-        <!-- How to For loop an array of objects (with index) -->
         <li *ngFor="let passenger of passengers; let i = index;">
+          <span 
+            class="status"
+            [class.checked-in]="passenger.checkedIn"
+          ></span>
           {{ i }}: {{ passenger.fullname }}
         </li>
       </ul>
+
+      <!-- Approach 2: ngClass way to setup multiple classes on an element -->
+      <h3>Airline Passengers</h3>
+      <ul>
+        <li *ngFor="let passenger of passengers; let i = index;">
+          <span 
+            class="status"
+            [ngClass]="{ 
+              'checked-in': passenger.checkedIn,
+              'checked-out': !passenger.checkedIn
+            }"
+          ></span>
+          {{ i }}: {{ passenger.fullname }}
+        </li>
+      </ul>
+
     </div>
   `
 })
