@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 
-//Typescript - setting up an interface for Passenger object.
 interface Passenger {
   id: number,
   fullname: string,
-  checkedIn: boolean
+  checkedIn: boolean,
+  //Typescript: ? makes it an optional value, if it exists it must be a number.
+  checkedInDate?: number
 }
 
 @Component({
@@ -13,7 +14,6 @@ interface Passenger {
   template: `
     <div class="app">
       <h3>Airline Passengers</h3>
-      <!-- Approach 1: property binding-->
       <ul>
         <li *ngFor="let passenger of passengers; let i = index;">
           <span 
@@ -21,73 +21,44 @@ interface Passenger {
             [class.checked-in]="passenger.checkedIn"
           ></span>
           {{ i }}: {{ passenger.fullname }}
+          <!-- Pipe: example of using the json pipe -->
+          <!-- <p>{{ passenger | json }}</p> -->
+          <div class="date">
+            Check in date: 
+            <!-- Pipe: example of using the date pipe and chaining it with uppercase -->
+            {{passenger.checkedIn ? (passenger.checkedInDate | date: "yMMMMd" | uppercase) : 'Not Checked In' }}
+          </div>
         </li>
       </ul>
-
-      <!-- Approach 2: ngClass way to setup multiple classes on an element -->
-      <h3>Airline Passengers</h3>
-      <ul>
-        <li *ngFor="let passenger of passengers; let i = index;">
-          <span 
-            class="status"
-            [ngClass]="{ 
-              'checked-in': passenger.checkedIn,
-              'checked-out': !passenger.checkedIn
-            }"
-          ></span>
-          {{ i }}: {{ passenger.fullname }}
-        </li>
-      </ul>
-
-      <!-- Approach 3: Modify inline style elements -->
-      <h3>Airline Passengers</h3>
-      <ul>
-        <li *ngFor="let passenger of passengers; let i = index;">
-          <span 
-            class="status"
-            [style.backgroundColor]="(passenger.checkedIn ? '#2ecc71' : '#c0392b')"
-          ></span>
-          {{ i }}: {{ passenger.fullname }}
-        </li>
-      </ul>
-
-      <!-- Approach 4: ngStyle -->
-      <h3>Airline Passengers</h3>
-      <ul>
-        <li *ngFor="let passenger of passengers; let i = index;">
-          <span 
-            class="status"
-            [ngStyle]="{ backgroundColor: (passenger.checkedIn ? '#2ecc71' : '#c0392b') }"
-          ></span>
-          {{ i }}: {{ passenger.fullname }}
-        </li>
-      </ul>
-
     </div>
   `
 })
 
 export class AppComponent {
-  //Typescript Passengers array.
   passengers: Passenger[] = [{
     id: 1,
     fullname: 'Stephen',
-    checkedIn: true
+    checkedIn: true,
+    checkedInDate:  1490742000000
   }, {
     id: 2,
     fullname: 'Rose',
-    checkedIn: false    
+    checkedIn: false,
+    checkedInDate:  null
   }, {
     id: 3,
     fullname: 'James',
-    checkedIn: true
+    checkedIn: true,
+    checkedInDate:  1490742000000
   }, {
     id: 4,
     fullname: 'Louise',
-    checkedIn: true
+    checkedIn: true,
+    checkedInDate:  1490742000000
   }, {
     id: 5,
     fullname: 'Tina',
-    checkedIn: false
+    checkedIn: false,
+    checkedInDate:  null
   }]
 }
