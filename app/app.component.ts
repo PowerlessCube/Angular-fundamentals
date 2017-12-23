@@ -3,16 +3,21 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'app-root',
   styleUrls: ['app.component.scss'],
+  // ngModel is taking a property binding
+  // ngModelChange is taking an event binding
   template: `
     <div class="app">
       <button (click)="handleClick()">
         Change Name
       </button>
       <input 
-        type="text" 
-        [value]="name"
-        (input)="handleInput($event)"
-        (blur)="handleBlur($event)"
+        type="text"
+        [ngModel]="name"
+        (ngModelChange)="handleChange($event)"
+      />
+      <input 
+        type="text"
+        [(ngModel)]="name"
       />
       <div>{{ name }}</div>
     </div>
@@ -22,18 +27,13 @@ import { Component } from '@angular/core';
 export class AppComponent {
   name: string = 'Alistair'
   
-  // Example of one way data flow with an event emmiting from component and updates a value.
-  handleInput(event: any) {
-    this.name = event.target.value;
-  }
-
   handleClick() {
     this.name = 'Mackay';
   }
 
-  handleBlur(event: any) {
-    this.name = event.target.value;
-    console.log(event);
+  handleChange(value: string) {
+    this.name = value;
   }
+
 
 }
