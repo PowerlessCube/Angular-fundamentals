@@ -1,21 +1,26 @@
 import { Component } from '@angular/core';
 
-//Decorator - which is a type script feature
 @Component({
-  //Selector creates the element in the html
   selector: 'app-root',
-  //Contains a reference to our Sass file.  
   styleUrls: ['app.component.scss'],
-  // Creates a template in a string that is rendered to our index.html.
   template: `
     <div class="app">
       {{ title }}
+      <div>
+        {{ numberOne + numberTwo }}
+      </div>
+      <div>
+        {{ isHappy ? ':)' : ':(' }}
+      </div>
     </div>
   `
 })
 
 export class AppComponent {
   title: string;
+  numberOne: number = 1;
+  numberTwo: number = 2;
+  isHappy: boolean = true;
   constructor() {
     this.title = 'Ultimate Angular'
   }
