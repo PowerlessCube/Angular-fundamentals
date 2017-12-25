@@ -1,18 +1,21 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+// Containers
 import { PassengerDashboardComponent } from './containers/passenger-dashboard/passenger-dashboard.component';
+// Components
+import { PassengerCountComponent } from './components/passenger-count/passenger-count.component'
+import { PassengerDetailComponent } from './components/passenger-detail/passenger-detail.component'
 
 @NgModule({
-    // Hold all the components relevant to this module
     declarations: [
-        PassengerDashboardComponent
+        PassengerDashboardComponent,
+        PassengerCountComponent,
+        PassengerDetailComponent
     ],
     imports: [
         CommonModule
     ],
     exports: [
-        // Export it so we can use it in our other modules
         PassengerDashboardComponent
     ]
 })
