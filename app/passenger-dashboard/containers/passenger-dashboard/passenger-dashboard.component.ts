@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 
+import { PassengerDashboardService } from '../../passenger-dashboard.service';
+
 import { Passenger } from '../../models/passenger.interface';
+
 
 @Component({
     selector: 'passenger-dashboard',
@@ -25,40 +28,12 @@ import { Passenger } from '../../models/passenger.interface';
 
 export class PassengerDashboardComponent implements OnInit {
     passengers: Passenger[];
-    constructor() {}
+    // Using TypeScript hook up our service to the constructor
+    constructor(private passengerService: PassengerDashboardService) {}
     ngOnInit() {
         console.log('ngOnInit');
-        this.passengers = [{
-            id: 1,
-            fullname: 'Stephen',
-            checkedIn: true,
-            checkedInDate:  1490742000000,
-            children: null
-          }, {
-            id: 2,
-            fullname: 'Rose',
-            checkedIn: false,
-            checkedInDate:  null,
-            children: [{ name: 'Ted', age: 12 }, { name: 'Chloe', age: 7 }]
-          }, {
-            id: 3,
-            fullname: 'James',
-            checkedIn: true,
-            checkedInDate:  1490742000000,
-            children: null
-          }, {
-            id: 4,
-            fullname: 'Louise',
-            checkedIn: true,
-            checkedInDate:  1490742000000,
-            children: [{ name: 'Jessica', age: 1 }]
-          }, {
-            id: 5,
-            fullname: 'Tina',
-            checkedIn: false,
-            checkedInDate:  null,
-            children: null
-          }]
+        // Calling our service and gettingPassengers Array.
+        this.passengers = this.passengerService.getPassengers();
     }
 
     handleEdit(event) {
