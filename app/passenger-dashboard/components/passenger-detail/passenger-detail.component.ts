@@ -1,5 +1,5 @@
 //Input: allows the passing of data into a component, Output and EventEmitter: allows the passing of data out of a component.
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnChanges, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 import {  Passenger } from '../../models/passenger.interface'
 
@@ -37,13 +37,11 @@ import {  Passenger } from '../../models/passenger.interface'
     `
 })
 
-export class PassengerDetailComponent {
+export class PassengerDetailComponent implements OnChanges, OnInit {
     @Input()
     detail: Passenger;
     
-    // Create a custom property, called edit and remove
     @Output()
-    // Created new instance of eventEmitter.
     edit: EventEmitter<any> = new EventEmitter();
     
     @Output()
@@ -53,20 +51,30 @@ export class PassengerDetailComponent {
     
     constructor() {}
 
+    ngOnChanges(changes) {
+        if (changes.detail) {
+            // Override detail object with a clone of itself
+            this.detail = Object.assign({}, changes.detail.currentValue);
+        }
+        console.log('ngOnChanges')
+    }
+
+    ngOnInit() {
+        console.log('ngOnInit');
+    }
+
     onNameChange(value: string) {
         this.detail.fullname = value;
     }
 
     toggleEdit() {
         if (this.editing) {
-            // Fire event to the parent to say we're done editing.
             this.edit.emit(this.detail);
         }
         this.editing = !this.editing;
     }
 
     onRemove() {
-        // Fire event to the parent to say 'remove this'.
         this.remove.emit(this.detail);
     }
 }

@@ -10,6 +10,9 @@ import { Passenger } from '../../models/passenger.interface';
             <passenger-count
                 [items]="passengers">
             </passenger-count>
+            <div *ngFor="let passenger of passengers;">
+                {{ passenger.fullname }}
+            </div>
             <passenger-detail
                 *ngFor="let passenger of passengers"
                 [detail]="passenger"
@@ -60,17 +63,13 @@ export class PassengerDashboardComponent implements OnInit {
 
     handleEdit(event) {
         this.passengers = this.passengers.map((passenger: Passenger) => {
-            // Checks if the passenger has been edited
             if (passenger.id === event.id) {
-                // Immutable object: returns a new passenger with edits.
                 passenger = Object.assign({}, passenger, event)
             }
             return passenger;
         })
-        console.log(this.passengers);
     }
 
     handleRemove(event: Passenger) {
-        console.log(event); // Log event to dashboard.
         this.passengers = this.passengers.filter((passenger: Passenger) => passenger.id !== event.id)}
 }
