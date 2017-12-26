@@ -1,4 +1,3 @@
-//Input: allows the passing of data into a component, Output and EventEmitter: allows the passing of data out of a component.
 import { Component, OnChanges, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 import {  Passenger } from '../../models/passenger.interface'
@@ -53,7 +52,6 @@ export class PassengerDetailComponent implements OnChanges, OnInit {
 
     ngOnChanges(changes) {
         if (changes.detail) {
-            // Override detail object with a clone of itself
             this.detail = Object.assign({}, changes.detail.currentValue);
         }
         console.log('ngOnChanges')
