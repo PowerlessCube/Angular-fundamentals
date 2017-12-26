@@ -1,7 +1,12 @@
+import { Injectable } from '@angular/core';
+import { Http } from '@angular/http';
+
 import { Passenger } from './models/passenger.interface';
 
+// Allows are object to inject dependencies for use in it.
+@Injectable()
 export class PassengerDashboardService {
-    constructor() {}
+    constructor(private http: Http) {}
 
     getPassengers(): Passenger[] {
         return [{
