@@ -28,12 +28,12 @@ import { Passenger } from '../../models/passenger.interface';
 
 export class PassengerDashboardComponent implements OnInit {
     passengers: Passenger[];
-    // Using TypeScript hook up our service to the constructor
     constructor(private passengerService: PassengerDashboardService) {}
     ngOnInit() {
         console.log('ngOnInit');
-        // Calling our service and gettingPassengers Array.
-        this.passengers = this.passengerService.getPassengers();
+        this.passengerService
+            .getPassengers()
+            .subscribe((data: Passenger[]) => this.passengers = data)
     }
 
     handleEdit(event) {
