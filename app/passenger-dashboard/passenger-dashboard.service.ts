@@ -19,9 +19,16 @@ export class PassengerDashboardService {
         return this.http
             .get(PASSENGER_API)
             .map((response: Response) => response.json())
-            // How to implement throw catch error handeling in your Angular.
             .catch((error: any) => Observable.throw(error.json()));
     }
+
+    getPassenger(id: number): Observable<Passenger> {
+        return this.http
+            .get(`${PASSENGER_API}/${id}`)
+            .map((response: Response) => response.json())
+            .catch((error: any) => Observable.throw(error.json()));
+    }
+
 
     updatePassenger(passenger: Passenger): Observable<Passenger> {
         let headers = new Headers({
