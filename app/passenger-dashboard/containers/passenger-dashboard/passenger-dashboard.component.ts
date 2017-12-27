@@ -32,6 +32,7 @@ export class PassengerDashboardComponent implements OnInit {
     ngOnInit() {
         this.passengerService
             .getPassengers()
+            // You can add a second argument for error handeling here.
             .subscribe((data: Passenger[]) => this.passengers = data)
     }
 
@@ -52,7 +53,7 @@ export class PassengerDashboardComponent implements OnInit {
         this.passengerService
             .removePassenger(event)
             .subscribe((data: Passenger) => {
-                this.passengers = this.passengers.filter((passenger: Passenger) => passenger.id !== event.id)                
+                this.passengers = this.passengers.filter((passenger: Passenger) => passenger.id !== event.id)        
             });  
         };
             
