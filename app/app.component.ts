@@ -5,7 +5,8 @@ import { Component } from '@angular/core';
   styleUrls: ['app.component.scss'],
   template: `
     <div class="app">
-      <passenger-viewer></passenger-viewer>
+      <!-- router-outlet is a directive via the router, a place holder for where our components will be injected. -->
+      <router-outlet></router-outlet>
     </div>
   `
 })
