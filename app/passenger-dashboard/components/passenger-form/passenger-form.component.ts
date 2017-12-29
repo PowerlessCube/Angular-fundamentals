@@ -8,10 +8,8 @@ import { Baggage } from '../../models/baggage.interface';
     styleUrls: ['passenger-form.component.scss'],
     template: `
         <form #form="ngForm" novalidate>
-            {{ detail | json }}
             <div>
                 Passenger name:
-                <!-- ngModel also keeps track of validation states for us too --> 
                 <input
                     type="text"
                     name="fullname"
@@ -33,7 +31,6 @@ import { Baggage } from '../../models/baggage.interface';
                 <div *ngIf="id.errors?.required && id.touched" class="error">
                     Passenger ID is required
                 </div>
-
             </div>
 
             <div>
@@ -68,9 +65,9 @@ import { Baggage } from '../../models/baggage.interface';
                 </select>
             </div>
 
-            <div>{{ form.value | json }}</div>
-            <div>Valid: {{ form.valid | json }}</div>
-            <div>Invalid: {{ form.invalid | json }}</div>
+            <button type="submit" [disabled]="form.invalid">
+                Update passenger
+            </button>
         </form>
     `
 })
