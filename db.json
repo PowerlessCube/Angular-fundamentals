@@ -1,10 +1,9 @@
 {
   "passengers": [
     {
+      "fullname": "Steve",
       "id": 1,
-      "fullname": "Geoff",
-      "checkedIn": true,
-      "checkedInDate": 1490742000000,
+      "checkedIn": false,
       "baggage": "none"
     },
     {
@@ -15,18 +14,17 @@
       "baggage": ""
     },
     {
-        "id": 3,
-        "fullname": "James",
-        "checkedIn": true,
-        "checkedInDate": 1490742000000,
-        "baggage": ""
-    },
-    {
-      "id": 4,
-      "fullname": "Louise",
+      "id": 3,
+      "fullname": "James",
       "checkedIn": true,
       "checkedInDate": 1490742000000,
       "baggage": ""
+    },
+    {
+      "fullname": "Steve the unbecoming",
+      "id": 4,
+      "checkedIn": true,
+      "baggage": "none"
     },
     {
       "id": 5,
