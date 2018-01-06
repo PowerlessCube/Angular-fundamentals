@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { PassengerDashboardService } from '../../passenger-dashboard.service';
 
@@ -19,6 +20,7 @@ import { Passenger } from '../../models/passenger.interface';
             <passenger-detail
                 *ngFor="let passenger of passengers"
                 [detail]="passenger"
+                (view)="handleView($event)"
                 (edit)="handleEdit($event)"
                 (remove)="handleRemove($event)">
             </passenger-detail>
@@ -28,11 +30,14 @@ import { Passenger } from '../../models/passenger.interface';
 
 export class PassengerDashboardComponent implements OnInit {
     passengers: Passenger[];
-    constructor(private passengerService: PassengerDashboardService) {}
+    constructor(
+        private passengerService: PassengerDashboardService,
+        private router: Router
+    ) {}
+    
     ngOnInit() {
         this.passengerService
             .getPassengers()
-            // You can add a second argument for error handeling here.
             .subscribe((data: Passenger[]) => this.passengers = data)
     }
 
@@ -55,6 +60,10 @@ export class PassengerDashboardComponent implements OnInit {
             .subscribe((data: Passenger) => {
                 this.passengers = this.passengers.filter((passenger: Passenger) => passenger.id !== event.id)        
             });  
-        };
+    };
+    // imperitive navigation using dynamic id
+    handleView(event: Passenger) {
+        this.router.navigate(['/passengers', event.id]);
+    }
             
 }

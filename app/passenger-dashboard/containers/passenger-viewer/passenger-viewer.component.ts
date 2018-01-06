@@ -12,6 +12,9 @@ import { Passenger } from '../../models/passenger.interface';
     styleUrls: ['passenger-viewer.component.scss'],
     template: `
         <div>
+            <button (click)="goBack()">
+                &lsaquo; Go Back
+            </button>
             <passenger-form
                 [detail]="passenger"
                 (update)="onUpdatePassenger($event)">
@@ -30,18 +33,21 @@ export class PassengerViewerComponent implements OnInit {
     ) {}
 
     ngOnInit() {
-        // the url params /1 etc.
         this.route.params
-            //RXjs operator: switchmap subscribes to these param changes - get the param data and pass that data dynamically into our service
             .switchMap((data: Passenger) => this.passengerService.getPassenger(data.id))
-            // bind the data to this.passenger
             .subscribe((data: Passenger) => this.passenger = data );
     }
+    
     onUpdatePassenger(event: Passenger) {
         this.passengerService
             .updatePassenger(event)
             .subscribe((data: Passenger) => {
                 this.passenger = Object.assign({}, this.passenger, event);
             })
+    }
+
+    goBack() {
+        // imperitive routing - using the native api rather than using the router link (previous videos)
+        this.router.navigate(['/passengers']);
     }
 }
