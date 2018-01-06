@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute, Params } from '@angular/router';
+
+import 'rxjs/add/operator/switchMap';
 
 import { PassengerDashboardService } from '../../passenger-dashboard.service';
 
@@ -19,10 +22,19 @@ import { Passenger } from '../../models/passenger.interface';
 
 export class PassengerViewerComponent implements OnInit {
     passenger: Passenger;
-    constructor(private passengerService: PassengerDashboardService) {}
+    
+    constructor(
+        private router: Router,
+        private route: ActivatedRoute,
+        private passengerService: PassengerDashboardService
+    ) {}
+
     ngOnInit() {
-        this.passengerService
-            .getPassenger(1)
+        // the url params /1 etc.
+        this.route.params
+            //RXjs operator: switchmap subscribes to these param changes - get the param data and pass that data dynamically into our service
+            .switchMap((data: Passenger) => this.passengerService.getPassenger(data.id))
+            // bind the data to this.passenger
             .subscribe((data: Passenger) => this.passenger = data );
     }
     onUpdatePassenger(event: Passenger) {
